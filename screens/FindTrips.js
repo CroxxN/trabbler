@@ -3,7 +3,9 @@ import { ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import TripsBox from "./componenets/TripsBox";
 
-const db_url = "http://localhost:5000/api";
+const local_db_url = "http://localhost:5000/api";
+// Default flask address and port
+const db_url = "http://172.16.5.4:5000/api";
 
 function FindTrips(navigation) {
   const [trips, setTrips] = useState([]);
@@ -11,27 +13,27 @@ function FindTrips(navigation) {
   const [error, setError] = useState(null);
   const getTrips = async () => {
     try {
-      // const response = await fetch(`${db_url}/trips`);
-      // const data = await response.json();
-      const data = [
-        {
-          from: "Tel Aviv",
-          to: "Jerusalem",
-          time: "12:00",
-        },
-        {
-          from: "Gongabu",
-          to: "Maharajgunj",
-          time: "9:00",
-        },
-      ];
+      const response = await fetch(`${db_url}/trips`);
+      const data = await response.json();
+      // const data = [
+      //   {
+      //     from: "Tel Aviv",
+      //     to: "Jerusalem",
+      //     time: "12:00",
+      //   },
+      //   {
+      //     from: "Gongabu",
+      //     to: "Maharajgunj",
+      //     time: "9:00",
+      //   },
+      // ];
       setTrips(data);
       console.log(data);
       setLoading(null);
       // If the error by set by prevous call, reset it
       setError(null);
     } catch (err) {
-      setError(err);
+      setError("Something went wrong: " + err);
       setLoading(null);
     }
   };

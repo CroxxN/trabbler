@@ -27,7 +27,7 @@ function registerDriver(navigation) {
   const { height } = useWindowDimensions();
 
   const registered = () => {
-    fetch("http://localhost:5000/api/registerDriver", {
+    fetch("http://172.16.5.4:5000/api/registerDriver", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

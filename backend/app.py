@@ -4,6 +4,7 @@ Main server file
 
 from flask import Flask
 from db import DB
+import logging
 
 app = Flask(__name__)
 db = DB()
@@ -21,6 +22,8 @@ def register_user(request):
     user = request.form['user']
     email = request.form['email']
     password = request.form['password']
+    fullname = request.form['fullname']
+    phone = request.form['phone']
 
     # If email or password is missing, return error
     if not (email or password):
@@ -32,7 +35,8 @@ def register_user(request):
     # If email already exists, return error
     if db.get_user(email):
         return 'Email already exists', 400
-    db.register_user({"user": user, "email": email, "password": password})
+    db.register_user({"user": user, "email": email,
+                     "password": password, "fullname": fullname, "phone": phone})
     return 200
 
 
@@ -84,3 +88,7 @@ def add_trip(request):
     except Exception:
         return 'Error adding trip', 400
     return 'Trip added successfully', 200
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)

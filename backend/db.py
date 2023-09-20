@@ -11,8 +11,9 @@ class DB:
     '''
 
     def __init__(self) -> None:
-        self.client = MongoClient('mongodb://localhost:27017/')
-        self.Db = self.client['trabbler']
+        self.client = MongoClient(
+            'mongodb+srv://trabbler:Trabbler0@cluster0.mzyvofo.mongodb.net/?retryWrites=true&w=majority')
+        self.Db = self.client['Cluster0']
 
     def get_db(self):
         '''Grabs the db connection'''
@@ -50,8 +51,3 @@ class DB:
         '''Returns all the trips'''
         trips = self.get_collection('trips')
         return trips.find()
-
-    def get_stations(self):
-        '''Returns all the stations'''
-        stations = self.get_collection('stations')
-        return stations.find()
