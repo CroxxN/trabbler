@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native'
 
 
 
-function login(){
+function Login(){
 
     const navigation= useNavigation();
 
@@ -56,4 +56,4 @@ const styles= StyleSheet.create(
     }
  );
 
-export default login;
+export default Login;
