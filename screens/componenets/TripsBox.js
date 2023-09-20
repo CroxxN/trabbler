@@ -8,9 +8,23 @@ function TripsBox({ props }) {
   }
   return (
     <View style={Styles.container}>
-      <View style={{ flex: 1 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          // width: 50,
+          // height: 50,
+        }}
+      >
         {/* Replace it with profile avatar */}
-        {/* <Image source={require("../../assets/logot.png")} /> */}
+        <Image
+          style={{
+            width: 50,
+            height: 50,
+          }}
+          source={require("../../assets/avatar.png")}
+        />
       </View>
       <View style={Styles.sBox}>
         <Text style={Styles.text}>{fromToText}</Text>
@@ -22,8 +36,8 @@ function TripsBox({ props }) {
 
 const Styles = StyleSheet.create({
   container: {
-    height: 100,
-    width: "100%",
+    // height: 100,
+    // width: "100%",
     margin: 5,
     borderRadius: 10,
     // flex: 1,

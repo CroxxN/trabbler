@@ -8,29 +8,31 @@ const db_url = "http://localhost:5000/api";
 function FindTrips(navigation) {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(<ActivityIndicator size={"large"} />);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const getTrips = async () => {
     try {
-      const response = await fetch(`${db_url}/trips`);
-      const data = await response.json();
-      //   const data = [
-      //     {
-      //       from: "Tel Aviv",
-      //       to: "Jerusalem",
-      //       time: "12:00",
-      //     },
-      //     {
-      //       from: "Gongabu",
-      //       to: "Maharajgunj",
-      //       time: "9:00",
-      //     },
-      //   ];
+      // const response = await fetch(`${db_url}/trips`);
+      // const data = await response.json();
+      const data = [
+        {
+          from: "Tel Aviv",
+          to: "Jerusalem",
+          time: "12:00",
+        },
+        {
+          from: "Gongabu",
+          to: "Maharajgunj",
+          time: "9:00",
+        },
+      ];
       setTrips(data);
       console.log(data);
       setLoading(null);
+      // If the error by set by prevous call, reset it
+      setError(null);
     } catch (err) {
-      setError(true);
-      setLoading(false);
+      setError(err);
+      setLoading(null);
     }
   };
   useEffect(() => {
@@ -43,6 +45,7 @@ function FindTrips(navigation) {
       {trips.map((trip) => (
         <TripsBox props={trip} />
       ))}
+      {error && <Text>{error}</Text>}
 
       {/* {error && <Text>{error}</Text>} */}
       {/* <ActivityIndicator size={"large"} /> */}

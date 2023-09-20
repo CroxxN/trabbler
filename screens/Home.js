@@ -20,7 +20,27 @@ export default function Home({ navigation }) {
   const { height } = useWindowDimensions();
 
   const findRider = () => {
-    console.warn("rider found");
+    fetch("http://localhost:5000/api/add_trip", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pickUp,
+        dropUp,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert("Error:" + data.error);
+        } else {
+          navigation.navigate("findTrips");
+        }
+      })
+      .catch((err) => {
+        alert("Something went wrong: " + err);
+      });
   };
   return (
     <View>
@@ -52,13 +72,14 @@ export default function Home({ navigation }) {
         <Picker.Item label="Station 2" value="Station 2" />
         <Picker.Item label="Station 3" value="Station 3" />
       </Picker>
-
-      <ButtonCus title="Find a Rider" onPress={findRider} theme="primary" />
-      <ButtonCus
-        theme="secondary"
-        title="Go to Login page"
-        onPress={() => navigation.navigate("login")}
-      />
+      <View style={{ padding: 10 }}>
+        <ButtonCus title="Find a Rider" onPress={findRider} theme="primary" />
+        <ButtonCus
+          theme="secondary"
+          title="Show Trips"
+          onPress={() => navigation.navigate("findtrips")}
+        />
+      </View>
     </View>
   );
 }
